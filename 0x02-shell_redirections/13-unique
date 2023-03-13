@@ -1,0 +1,2 @@
+#!/bin/bash
+cat word |tr '[:upper:]' '[:upper:]' | grep -oE '\w+' | sort | uniq -u
