@@ -1,5 +1,14 @@
-# install flask
+# 1-install_a_package.pp
 
-exec { 'flask':
-  command => '/usr/bin/pip3 install Flask==2.1.0',
+# Define a class for installing Flask
+class install_flask {
+  # Install Flask using pip3
+  package { 'Flask':
+    ensure   => '2.1.0',
+    provider => 'pip3',
+  }
 }
+
+# Apply the class
+include install_flask
+
