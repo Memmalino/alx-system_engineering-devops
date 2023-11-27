@@ -1,0 +1,1 @@
+This is another project in the alx-system_engineering-devops directory, the name of the project is 0x0C-web_server, you'll find the following tasks in the repository with their respective index 0-transfer_file: transferring files between client and server, 1-install_nginx_web_server, 2-setup_a_domain_name, 3-redirection, 4-not_found_page_404
