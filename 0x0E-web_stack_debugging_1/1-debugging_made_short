@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# edit the nginx config file to re-link and restart nginx server
+ln -fs /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx restart
