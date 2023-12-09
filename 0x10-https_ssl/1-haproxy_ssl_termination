@@ -36,7 +36,7 @@ defaults
 frontend  memmalino-frontend
         bind *:80
         mode http
-        bind *:443 ssl crt /etc/haproxy/certs/www.ollyjhay.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/www.memmalino.tech.pem
         redirect scheme https if !{ ssl_fc }
         default_backend memmalino-backend
 backend memmalino-backend
