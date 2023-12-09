@@ -3,7 +3,7 @@ package { 'nginx':
   ensure => installed,
 }
 
-file_line { 'aaaaa':
+file_line { 'redirection-301':
   ensure => 'present',
   path   => '/etc/nginx/sites-available/default',
   after  => 'listen 80 default_server;',
