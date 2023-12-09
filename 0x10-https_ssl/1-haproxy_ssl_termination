@@ -33,13 +33,13 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend  ollyjhay-frontend
+frontend  memmalino-frontend
         bind *:80
         mode http
         bind *:443 ssl crt /etc/haproxy/certs/www.ollyjhay.tech.pem
         redirect scheme https if !{ ssl_fc }
-        default_backend ollyjhay-backend
-backend ollyjhay-backend
+        default_backend memmalino-backend
+backend memmalino-backend
         balance roundrobin
         server 344247-web-01 54.89.116.235:80 check
         server 344247-web-02 35.168.2.64:80 check
