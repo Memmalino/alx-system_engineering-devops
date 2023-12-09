@@ -41,7 +41,7 @@ frontend http
 	default_backend web-server
 
 frontend https
-        bind *:443 ssl crt /etc/haproxy/certs/www.alexoat76.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/www.memmalino.tech.pem
 	http-request redirect scheme https unless { ssl_fc }
 	default_backend web-server
 
