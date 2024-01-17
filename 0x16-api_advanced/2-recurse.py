@@ -1,28 +1,32 @@
-i#!/usr/bin/python3
-"""add to a list of hot list"""
+#!/usr/bin/python3
+"""Fetch top ten posts of a subreddit
+"""
 import requests
 
 
-def recurse(subreddit, hot_list=[], after="", count=0):
-    """recurse the value"""
-    params = {
-        'after': after,
-        'count': count,
-        'limit': 100
+def recurse(subreddit, after=None, hot_list=[]):
+    """get all posts of a subreddit
+    """
+    data = {
+        'User-agent': 'Iamabot'
     }
-    headers = {'User-Agent': 'Alx Task'}
-    url = 'http://www.reddit.com/r/{}/top/.json'.format(subreddit)
-    res = requests.get(url, params=params,
-                       headers=headers)
-    if res.status_code >= 400:
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    if after:
+        url += "?after={}".format(after)
+    r = requests.get(url,
+                     headers=data,
+                     allow_redirects=False
+                     )
+    if r.status_code != 200:
         return None
-    result = res.json().get('data')
-    after = result.get('after')
-    count += result.get('dist')
-    resp = result.get('children')
-    for child in resp:
-        hot_list.append(child.get('data').get('title'))
-    if after is not None:
-        return recurse(subreddit, hot_list, after, count)
     else:
+        posts = r.json().get('data').get('children')
+        for post in posts:
+            hot_list.append(post.get('data').get('title'))
+        if r.json().get('data').get('after'):
+            return recurse(
+                subreddit,
+                after=r.json().get('data').get('after'),
+                hot_list=hot_list
+            )
         return hot_list
