@@ -1,14 +1,7 @@
-# Slve why our server is failing
-include stdlib
+#This configuration is used to  increase the open file limit for Nginx using the exec resource:
 
-file_line { 'allow many requests':
-  ensure  => present,
-  path    => '/etc/default/nginx',
-  line    => 'LIMIT="-n 4096"',
-  replace => true
-}
-
-exec { 'restart nginx':
-  command  => 'sudo service nginx restart',
-  provider => shell
+exec { 'fix--for-nginx':
+  onlyif  => 'test -e /etc/default/nginx',
+  command => 'sed -i "5s/[0-9]\+/$( ulimit -n )/" /etc/default/nginx; service nginx restart',
+  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
 }
