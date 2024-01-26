@@ -1,4 +1,10 @@
-#!/usr/bin/env bash
-# reload gunicorn service in a graceful way
+# Example 4-reload_gunicorn_no_downtime
+#!/bin/bash
 
-pkill -HUP gunicorn
+# Find Gunicorn processes
+pids=$(pgrep gunicorn)
+
+# Reload Gunicorn gracefully
+for pid in $pids; do
+  kill -s HUP $pid
+done
