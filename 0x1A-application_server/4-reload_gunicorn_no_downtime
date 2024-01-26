@@ -1,10 +1,13 @@
-# Example 4-reload_gunicorn_no_downtime
 #!/bin/bash
 
-# Find Gunicorn processes
-pids=$(pgrep gunicorn)
+# Get the PID of Gunicorn master process
+PID=$(pgrep -f 'gunicorn --bind')
 
-# Reload Gunicorn gracefully
-for pid in $pids; do
-  kill -s HUP $pid
-done
+if [ -z "$PID" ]
+then
+  echo "Gunicorn is not running."
+else
+  # Send the HUP signal to Gunicorn
+  kill -HUP $PID
+  echo "Gunicorn has been gracefully reloaded."
+fi
